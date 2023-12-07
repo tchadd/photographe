@@ -1,0 +1,39 @@
+<nav class="nav">
+	<ul class="nav-items">
+		<li>
+			<a href="/">Acceuil</a>
+		</li>
+		<li>
+			<a href="/presentation">Presentation</a>
+		</li>
+		<li>
+			<a href="/prestations">Prestations</a>
+		</li>
+		<li>
+			<a href="/avis">Avis</a>
+		</li>
+		<li>
+			<a href="{{ path('app_contact')}}">Contact</a>
+		</li>
+
+	</ul>
+
+	{% if app.user %}
+		<div class="deco">
+			<button class="btn-deco" onclick="window.location.href='{{ path('app_logout') }}'">Déconnexion</button>
+		</div>
+
+		{% if is_granted('ROLE_ADMIN') %}
+			{# Si l'utilisateur est connecté et qu'il est admin #}
+			<div class="deco">
+				<button class="btn-deco" onclick="window.location.href='/admin'">Administration</button>
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="co">
+			<button class="btn-co1" onclick="window.location.href='{{ path('app_connexion') }}'">Connexion</button>
+			<button class="btn-co2" onclick="window.location.href='{{ path('app_register') }}'">Inscription</button>
+		</div>
+	{% endif %}
+
+</nav>

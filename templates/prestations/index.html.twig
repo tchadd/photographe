@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %} 
+    Prestations 
+{% endblock %}   
+{% block stylesheets %}
+    <link rel="stylesheet" href="assets/css/prestations.css"> 
+{% endblock %}
+{% block body %} 
+    <h1>Mes Prestations</h1>
+        {% if app.user %} {# si l'utilisateur est connecté #}
+            {% if  is_granted('ROLE_ADMIN') %} {# si l'utilisateur est connecté et qu'il est admin #}
+                    <div class="editPrestations"><button class="edit-button" onclick="window.location.href='/admin'">Modifier </button><div>
+            {% endif %} {# fin de la condition admin #}
+        {% endif %} {# fin de la condition user #}
+        <div class="container">
+        {% if prestations is empty %}
+    <p>Aucune prestation n'a été remplie.</p>
+    <a href="{{ path('admin_prestations') }}" class="btn btn-primary">Ajouter des prestations</a>
+    <div class="addPrestations"> 
+        <button class="add-button" onclick="window.location.href='/admin'">Ajouter des prestations</button>
+   </div>
+{% else %}
+    <ul>
+            <div class="pricing">
+                {% for prestation in prestations %} {# boucle sur les prestations #}
+                    <div class="package">
+                        <h2>{{prestation.libelle}}</h2>
+                            <p>À partir de <span class="highlight">{{prestation.prix}}€</span></p>
+                            <p>{{prestation.description}}</p>
+                            <p><span class="highlight">{{prestation.description}}</p>
+                    </div>
+                    <script>
+                    let add = document.querySelector('.addPrestations'); 
+                    add.style.display = 'none'; 
+                    </script>
+                {% endfor %} {# fin de la boucle #}
+            {% endif %} {# fin de la condition #}
+            </div>
+        </div>
+{% endblock %}
+    
+            

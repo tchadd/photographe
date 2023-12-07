@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block title %} Presentations{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="assets/css/presentation.css"> {% endblock %}
+{% block body %}
+    <main class="container presentation">
+        {% for value in presentation %}
+            {% if app.user %}
+            {% if  is_granted('ROLE_ADMIN') %} {# si l'utilisateur est connecté et qu'il est admin #}
+
+           l     <div class="btns-edit">
+                    <button class="btn-edit" onclick="window.location.href='/admin'">Modifier</button>
+                </div>  
+            {% endif %}
+            {% endif %}
+            <div class="header">
+                <h1>Présentation d'Alex, Photographe Passionné</h1>
+            </div>
+            <div class="about">
+                <h2>{{value.intituleDescription}}</h2>
+                <p>{{value.description}}</p>
+            </div>
+            <div class="expertise">
+                <h2>{{value.intituleExpertise}}</h2>
+                <p>{{value.expertise}}</p>
+            </div>
+            <div class="others">
+                <h2>{{value.intituleAutre}}</h2>
+                <p>{{value.autre}}</p>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}
